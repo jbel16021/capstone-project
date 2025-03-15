@@ -2,6 +2,7 @@
 import Image from "next/image";
 import SectionHeader from "../Common/SectionHeader";
 
+
 const Pricing = () => {
   return (
     <>
@@ -59,6 +60,7 @@ const Pricing = () => {
               <button
                 aria-label="Get the Plan button"
                 className="group/btn inline-flex items-center gap-2.5 font-medium text-primary transition-all duration-300 dark:text-white dark:hover:text-primary"
+                onClick={() => { window.location.href = "https://buy.stripe.com/test_6oE1561NYdrUdos144"; }}
               >
                 <span className="duration-300 group-hover/btn:pr-2">
                   Get the Plan

@@ -1,15 +1,18 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
+    // Simulate login logic
     console.log("Email:", email);
     console.log("Password:", password);
+    router.push("/dashboard"); // Redirect to dashboard
   };
 
   return (
