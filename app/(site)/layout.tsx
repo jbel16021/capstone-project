@@ -21,7 +21,7 @@ export default function RootLayout({
         <ThemeProvider
           enableSystem={false}
           attribute="class"
-          defaultTheme=""
+          defaultTheme="dark"
         >
           <Header />
           <ToasterContext />
