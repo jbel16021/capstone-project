@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
+  darkMode: "class", // Ensure dark mode is enabled
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}", // Include all files in the `app` directory
-    "./components/**/*.{js,ts,jsx,tsx}", // Include all files in the `components` directory
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class",
   theme: {
     fontFamily: {
       inter: ["Inter", "sans-serif"],
