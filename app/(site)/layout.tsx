@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import { usePathname } from "next/navigation"; // Import usePathname to get the current route
 const inter = Inter({ subsets: ["latin"] });
 
 import ToasterContext from "../context/ToastContext";
@@ -15,6 +16,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname(); // Get the current route
+
+  // Hide the Header for the /dashboard route
+  const hideHeader = pathname === "/dashboard";
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`dark:bg-black ${inter.className}`}>
@@ -23,7 +29,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="dark"
         >
-          <Header />
+          {!hideHeader && <Header />} {/* Render Header only if not on /dashboard */}
           <ToasterContext />
           {children}
           <Footer />
