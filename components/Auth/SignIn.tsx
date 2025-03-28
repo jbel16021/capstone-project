@@ -1,28 +1,59 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+);
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login logic
-    console.log("Email:", email);
-    console.log("Password:", password);
-    router.push("/dashboard"); // Redirect to dashboard
+    setError(null); // Clear any previous errors
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setError(error.message); // Display error message
+        return;
+      }
+
+      console.log("User signed in:", data);
+      router.push("/dashboard"); // Redirect to dashboard
+    } catch (err) {
+      console.error("Error signing in:", err);
+      setError("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
     <section className="py-20 lg:py-25 xl:py-30">
       <div className="mx-auto max-w-md px-4 md:px-8 xl:px-0">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/images/brand/normiss-fitness-logo-svg.svg" alt="Logo" className="h-60 w-auto" />
+        </div>
         <h2 className="text-3xl font-bold text-center mb-6">Sign In</h2>
         <form
           onSubmit={handleSubmit}
           className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md"
         >
+          {error && (
+            <div className="mb-4 text-red-500 text-sm">
+              {error}
+            </div>
+          )}
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -57,7 +88,7 @@ const Signin = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="w-full bg-purple-500 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
           >
             Sign In
           </button>
