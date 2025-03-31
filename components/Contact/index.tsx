@@ -77,16 +77,17 @@ const Contact = () => {
             viewport={{ once: true }}
             className="animate_top mx-auto w-full max-w-2xl rounded-lg bg-white p-7.5 shadow-solid-8 dark:border dark:border-strokedark dark:bg-black xl:p-15"
           >
-            <h2 className="mb-15 text-3xl font-semibold text-black dark:text-white xl:text-sectiontitle2">
-              Sign up for my coaching here
+            <h2 className="mb-5 text-3xl font-semibold text-black dark:text-white xl:text-sectiontitle2 text-center">
+            ¡ÚNETE A MI COACHING Y TRANSFORMA TU VIDA AHORA!
             </h2>
+            <p className="mb-10 text-center">Estás a un paso de transformar tu vida. Contáctame hoy mismo para comenzar tu viaje con estrategias personalizadas y apoyo constante. ¡No esperes más, tu mejor versión te está esperando!</p>
 
             <form onSubmit={handleSubmit}>
               <div className="mb-7.5 flex flex-col gap-7.5 lg:flex-row lg:justify-between lg:gap-14">
                 <input
                   type="text"
                   name="full_name"
-                  placeholder="Full name"
+                  placeholder="Nombre completo"
                   value={formData.full_name}
                   onChange={handleChange}
                   required
@@ -96,7 +97,7 @@ const Contact = () => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email address"
+                  placeholder="Dirección de correo electrónico"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -108,7 +109,7 @@ const Contact = () => {
                 <input
                   type="text"
                   name="subject"
-                  placeholder="Subject"
+                  placeholder="Asunto"
                   value={formData.subject}
                   onChange={handleChange}
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
@@ -117,7 +118,7 @@ const Contact = () => {
                 <input
                   type="text"
                   name="phone_number"
-                  placeholder="Phone number"
+                  placeholder="Número de teléfono"
                   value={formData.phone_number}
                   onChange={handleChange}
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
@@ -127,7 +128,7 @@ const Contact = () => {
               <div className="mb-11.5 flex">
                 <textarea
                   name="message"
-                  placeholder="Message"
+                  placeholder="Mensaje"
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
@@ -137,7 +138,7 @@ const Contact = () => {
 
               <button
                 type="submit"
-                aria-label="send message"
+                aria-label="Enviar mensaje"
                 disabled={isSubmitting} // Disable the button while submitting
                 className={`inline-flex items-center gap-2.5 rounded-full px-6 py-3 font-medium text-white duration-300 ease-in-out ${
                   isSubmitting
@@ -145,7 +146,7 @@ const Contact = () => {
                     : "bg-black hover:bg-blackho dark:bg-btndark"
                 }`}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? "Enviando..." : "Enviar mensaje"}
               </button>
             </form>
           </motion.div>

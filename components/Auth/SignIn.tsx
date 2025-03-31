@@ -8,7 +8,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 );
 
-const Signin = () => {
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -34,6 +34,19 @@ const Signin = () => {
     } catch (err) {
       console.error("Error signing in:", err);
       setError("An unexpected error occurred. Please try again.");
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/submit-review`, // Redirect to the Submit Review page
+      },
+    });
+
+    if (error) {
+      console.error("Google Sign-In Error:", error.message);
     }
   };
 
@@ -93,9 +106,22 @@ const Signin = () => {
             Sign In
           </button>
         </form>
+        <div className="mt-6 text-center">
+          <button
+            onClick={handleGoogleSignIn}
+            className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+          >
+            <img
+              src="https://developers.google.com/identity/images/g-logo.png"
+              alt="Google Logo"
+              className="h-5 w-5 mr-2"
+            />
+            Sign In with Google
+          </button>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Signin;
+export default SignIn;
