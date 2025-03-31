@@ -19,6 +19,10 @@ const Dashboard = () => {
     message: string;
     created_at: string;
   }[]>([]);
+  const [reviews, setReviews] = useState<{ id: number; name: string; rating: number; review: string; approved: boolean }[]>([]);
+  const [showReviewsModal, setShowReviewsModal] = useState(false);
+  const [showReviewDetailsModal, setShowReviewDetailsModal] = useState(false);
+  const [selectedReview, setSelectedReview] = useState<{ id: number; name: string; rating: number; review: string; approved: boolean } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false); // State to detect if the user is on mobile
@@ -37,6 +41,7 @@ const Dashboard = () => {
 
       // Fetch contacts if authenticated
       fetchContacts();
+      fetchReviews();
     };
 
     const fetchContacts = async () => {
@@ -58,6 +63,24 @@ const Dashboard = () => {
         setError("An unexpected error occurred.");
       } finally {
         setLoading(false);
+      }
+    };
+
+    const fetchReviews = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("reviews")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.error("Error fetching reviews:", error.message);
+          return;
+        }
+
+        setReviews(data || []);
+      } catch (err) {
+        console.error("Unexpected error:", err);
       }
     };
 
@@ -93,13 +116,23 @@ const Dashboard = () => {
         {/* Export Button */}
         <button
           onClick={exportToExcel}
-          className={`${
-            isMobile
-              ? "fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-purple-700 focus:outline-none"
-              : "absolute top-4 left-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none"
-          }`}
+          className={`${isMobile
+            ? "fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-purple-700 focus:outline-none"
+            : "absolute top-4 left-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none"
+            }`}
         >
           Export to Excel
+        </button>
+
+        {/* New Reviews Button */}
+        <button
+          onClick={() => setShowReviewsModal(true)}
+          className={`${isMobile
+              ? "fixed bottom-4 left-4 bg-white text-purple-600 border border-purple-600 px-4 py-2 rounded-full shadow-lg hover:bg-purple-100 focus:outline-none"
+              : "absolute top-4 right-4 bg-white text-purple-600 border border-purple-600 px-4 py-2 rounded-md shadow-md hover:bg-purple-100 focus:outline-none"
+            }`}
+        >
+          New Reviews
         </button>
 
         <h2 className="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-gray-100">
@@ -256,6 +289,110 @@ const Dashboard = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Reviews Modal */}
+        {showReviewsModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-3xl">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                Reviews
+              </h2>
+              <ul className="space-y-4">
+                {reviews.map((review) => (
+                  <li
+                    key={review.id}
+                    className={`p-4 border rounded-lg ${!review.approved
+                      ? "border-red-500 bg-red-50 dark:bg-red-900"
+                      : "border-gray-200 bg-gray-50 dark:bg-gray-700"
+                      }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-800 dark:text-gray-100">
+                        {review.name}
+                      </span>
+                      {!review.approved && (
+                        <span className="text-red-500 font-semibold">
+                          Needs Review
+                        </span>
+                      )}
+                      <button
+                        onClick={() => {
+                          setSelectedReview(review);
+                          setShowReviewDetailsModal(true);
+                        }}
+                        className="text-blue-500 hover:underline"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => setShowReviewsModal(false)}
+                className="mt-4 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:outline-none"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Review Details Modal */}
+        {showReviewDetailsModal && selectedReview && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                Review Details
+              </h2>
+              <p className="mb-2">
+                <strong>Name:</strong> {selectedReview.name}
+              </p>
+              <p className="mb-2">
+                <strong>Rating:</strong> {selectedReview.rating} Stars
+              </p>
+              <p className="mb-2">
+                <strong>Review:</strong> {selectedReview.review}
+              </p>
+              <div className="flex justify-end space-x-4 mt-4">
+                <button
+                  onClick={async () => {
+                    await supabase
+                      .from("reviews")
+                      .update({ approved: true }) // Set approved to true
+                      .eq("id", selectedReview.id);
+                    setShowReviewDetailsModal(false); // Close the modal
+                    setReviews((prev) =>
+                      prev.map((r) =>
+                        r.id === selectedReview.id ? { ...r, approved: true } : r
+                      )
+                    ); // Update the reviews state
+                  }}
+                  className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none"
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={async () => {
+                    await supabase
+                      .from("reviews")
+                      .update({ approved: false }) // Set approved to false
+                      .eq("id", selectedReview.id);
+                    setShowReviewDetailsModal(false); // Close the modal
+                    setReviews((prev) =>
+                      prev.map((r) =>
+                        r.id === selectedReview.id ? { ...r, approved: false } : r
+                      )
+                    ); // Update the reviews state
+                  }}
+                  className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none"
+                >
+                  Reject
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>

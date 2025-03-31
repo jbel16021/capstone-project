@@ -9,9 +9,50 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { motion } from "framer-motion";
 import SingleTestimonial from "./SingleTestimonial";
-import { testimonialData } from "./testimonialData";
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+);
 
 const Testimonial = () => {
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        // Fetch approved reviews from the "reviews" table
+        const { data, error } = await supabase
+          .from("reviews")
+          .select("*")
+          .eq("approved", true); // Only fetch approved reviews
+
+        if (error) {
+          console.error("Error fetching testimonials:", error.message);
+        } else {
+          setTestimonials(data || []);
+        }
+      } catch (err) {
+        console.error("Unexpected error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center py-10">Loading testimonials...</div>;
+  }
+
+  if (testimonials.length === 0) {
+    return <div className="text-center py-10">No testimonials available.</div>;
+  }
+
   return (
     <>
       <section>
@@ -20,9 +61,9 @@ const Testimonial = () => {
           <div className="animate_top mx-auto text-center">
             <SectionHeader
               headerInfo={{
-                title: `TESTIMONIALS`,
-                subtitle: `Client’s Testimonials`,
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.`,
+                title: `Testimonios`,
+                subtitle: `Lo Que Dicen Nuestros Clientes`,
+                description: ``,
               }}
             />
           </div>
@@ -72,7 +113,7 @@ const Testimonial = () => {
                 },
               }}
             >
-              {testimonialData.map((review) => (
+              {testimonials.map((review) => (
                 <SwiperSlide key={review?.id}>
                   <SingleTestimonial review={review} />
                 </SwiperSlide>
