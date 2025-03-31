@@ -133,7 +133,7 @@ const Header = () => {
                   href="/auth/signin"
                   className="flex items-center justify-center rounded-full border border-purple-500 bg-white px-7.5 py-2.5 text-regular text-purple-500 shadow-md duration-300 ease-in-out hover:bg-purple-100 hover:text-purple-700"
                 >
-                  Sign In
+                  Iniciar sesión
                 </Link>
 
                 {/* Get Started Button */}
@@ -147,7 +147,7 @@ const Header = () => {
                   }}
                   className="flex items-center justify-center rounded-full bg-purple-500 px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-purple-700"
                 >
-                  Get Started
+                  ¡Da el Primer Paso!
                 </Link>
               </div>
             )}
@@ -173,7 +173,7 @@ const Header = () => {
             href="/auth/signin"
             className="fixed top-4 right-32 z-99999 flex items-center justify-center rounded-full border border-purple-500 bg-white px-4 py-2 text-sm font-medium text-purple-500 shadow-lg duration-300 ease-in-out hover:bg-purple-100 hover:text-purple-700"
           >
-            Sign In
+            Iniciar sesión
           </a>
         </>
       )}

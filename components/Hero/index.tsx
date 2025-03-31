@@ -11,10 +11,10 @@ const Hero = () => {
 
   return (
     <>
-      <section className="relative overflow-hidden  md:pt-40 xl:pb-25 xl:pt-46 min-h-screen">
-        {/* Background Video */}
+      <section className="relative overflow-hidden md:pt-40 xl:pb-25 xl:pt-46 min-h-screen">
+        {/* Background Video for Desktop */}
         <video
-          className="absolute top-0 left-0 w-full h-full object-cover min-h-screen"
+          className="absolute top-0 left-0 w-full h-full object-cover min-h-screen hidden md:block"
           autoPlay
           loop
           muted
@@ -24,30 +24,32 @@ const Hero = () => {
           Your browser does not support the video tag.
         </video>
 
+        {/* Background Video for Mobile */}
+        <video
+          className="absolute top-0 left-0 w-full h-full object-cover min-h-screen block md:hidden"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="video/0331-mobile.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
         {/* Centered Content */}
-        <div className="absolute inset-0 flex items-center justify-center z-10 mt-50 mb-50">
-          <div className="text-center p-6 rounded-lg">
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div
+            className="text-center p-6 rounded-lg absolute bottom-10 md:bottom-auto md:static"
+          >
             <Image
-              src="/images/brand/normiss-fitness-logo-svg.svg" // Correct path for files in the public folder
+              src="/images/brand/normiss-fitness-logo-svg.svg"
               alt="Normiss Fitness Logo"
-              width={400} // Adjust width as needed
-              height={400} // Adjust height as needed
-              className="mx-auto"
+              width={200} // Smaller size for mobile
+              height={200}
+              className="mx-auto md:w-[500px] md:h-[500px]" // Larger size for desktop
             />
-            {/* <h1 className="text-4xl font-bold text-black dark:text-white xl:text-6xl leading-tight">
-              <span className="block">Normiss</span>
-              <span
-                className="text-5xl xl:text-7xl font-bold tracking-wide"
-                style={{ letterSpacing: "0.1em" }}
-              >
-                Fitness
-              </span>
-            </h1> */}
           </div>
         </div>
-
-        {/* Overlay */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
       </section>
     </>
   );
