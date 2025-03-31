@@ -41,7 +41,7 @@ const SignIn = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/submit-review`, // Redirect to the Submit Review page
+        redirectTo: `${window.location.origin}/submit-review`, // Dynamically use the current domain
       },
     });
 
