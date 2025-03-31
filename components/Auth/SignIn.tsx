@@ -57,7 +57,7 @@ const SignIn = () => {
         <div className="flex justify-center mb-6">
           <img src="/images/brand/normiss-fitness-logo-svg.svg" alt="Logo" className="h-60 w-auto" />
         </div>
-        <h2 className="text-3xl font-bold text-center mb-6">Sign In</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">Iniciar Sesión</h2>
         <form
           onSubmit={handleSubmit}
           className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md"
@@ -72,7 +72,7 @@ const SignIn = () => {
               htmlFor="email"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
-              Email Address
+              Correo Electrónico
             </label>
             <input
               type="email"
@@ -88,7 +88,7 @@ const SignIn = () => {
               htmlFor="password"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
-              Password
+              Contraseña
             </label>
             <input
               type="password"
@@ -103,7 +103,7 @@ const SignIn = () => {
             type="submit"
             className="w-full bg-purple-500 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
           >
-            Sign In
+            Iniciar Sesión
           </button>
         </form>
         <div className="mt-6 text-center">
@@ -116,7 +116,7 @@ const SignIn = () => {
               alt="Google Logo"
               className="h-5 w-5 mr-2"
             />
-            Sign In with Google
+            Iniciar Sesión con Google
           </button>
         </div>
       </div>

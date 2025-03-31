@@ -3,25 +3,19 @@ import { Menu } from "@/types/menu";
 const menuData: Menu[] = [
   {
     id: 1,
-    title: "Home",
+    title: "Inicio",
     newTab: false,
     path: "/",
   },
   {
-    id: 2,
-    title: "instagram",
-    newTab: false,
-    path: "#instagram",
-  },
-  {
     id: 2.1,
-    title: "Pricing",
+    title: "Precios",
     newTab: false,
     path: "#pricing",
   },
   {
     id: 2.3,
-    title: "Signup",
+    title: "Registrarse",
     newTab: false,
     path: "#contact",
   }
