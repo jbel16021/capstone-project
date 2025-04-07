@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Feature } from "@/types/feature";
 import { motion } from "framer-motion";
 
 const SingleInstagram = ({ feature }: { feature: Feature }) => {
   const { title, description, embedCode } = feature;
+  
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Mark the component as mounted on the client side
+    setIsClient(true);
+
     // Ensure the Instagram embed script is loaded
     const script = document.createElement("script");
     script.src = "//www.instagram.com/embed.js";
@@ -17,6 +22,11 @@ const SingleInstagram = ({ feature }: { feature: Feature }) => {
       document.body.removeChild(script);
     };
   }, []);
+
+  if (!isClient) {
+    // During SSR, don't render the Instagram embed to avoid hydration errors
+    return null;
+  }
 
   return (
     <motion.div
@@ -40,7 +50,7 @@ const SingleInstagram = ({ feature }: { feature: Feature }) => {
         {title}
       </h3>
       <p className="mb-4 text-gray-600 dark:text-gray-300">{description}</p>
-      <div dangerouslySetInnerHTML={{ __html: embedCode }} />
+      {isClient && <div dangerouslySetInnerHTML={{ __html: embedCode }} />}
     </motion.div>
   );
 };

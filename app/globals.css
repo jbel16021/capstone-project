@@ -65,3 +65,21 @@ pre {
 .active-tab {
   @apply bg-stroke text-black dark:bg-blackho dark:text-white;
 }
+
+
+.footer-brands .flex {
+  background: none; 
+  padding: 0; 
+  gap: 1rem; 
+  justify-content: center;
+}
+
+.footer-brands .brand-link {
+  width: auto; 
+  height: auto;
+}
+
+.footer-brands img {
+  width: 50px; 
+  height: 50px;
+}
