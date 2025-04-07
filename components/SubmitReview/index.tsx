@@ -39,12 +39,31 @@ const SubmitReview: React.FC<SubmitReviewProps> = ({ existingReview, onReviewSub
         return;
       }
 
-      const { error: reviewError, data: review } = await supabase.from("reviews").select("*").eq("user_id", user.id).single();
+      // Ensure the redirectTo parameter is set for Google OAuth
+      const { error: authError } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/submit-review`, // Redirect to the submit review page
+        },
+      });
+
+      if (authError) {
+        setError("Failed to authenticate. Please try again.");
+        return;
+      }
+
+      const { error: reviewError, data: review } = await supabase
+        .from("reviews")
+        .select("*")
+        .eq("user_id", user.id)
+        .single();
 
       if (reviewError) {
+        console.log("No existing review found.");
       } else {
         console.log("Fetched review:", review);
       }
+
       const { error } = await supabase.from("reviews").insert([
         {
           user_id: user.id,
