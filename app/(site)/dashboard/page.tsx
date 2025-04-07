@@ -3,11 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import * as XLSX from "xlsx"; // Import xlsx for exporting Excel files
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
-);
+import supabase from "@/utils/supabaseClient";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // For hamburger and close icons
 
 const Dashboard = () => {
   const [contacts, setContacts] = useState<{
@@ -27,6 +24,11 @@ const Dashboard = () => {
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false); // State to detect if the user is on mobile
   const [expanded, setExpanded] = useState<number | null>(null); // Track which accordion is expanded
+  const [showInstagramModal, setShowInstagramModal] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+  const [embedCode, setEmbedCode] = useState("");
+  const [instagramData, setInstagramData] = useState<{ id: number; embed_code: string }[]>([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for the hamburger menu
   const router = useRouter();
 
   useEffect(() => {
@@ -42,6 +44,7 @@ const Dashboard = () => {
       // Fetch contacts if authenticated
       fetchContacts();
       fetchReviews();
+      fetchInstagramData();
     };
 
     const fetchContacts = async () => {
@@ -84,6 +87,21 @@ const Dashboard = () => {
       }
     };
 
+    const fetchInstagramData = async () => {
+      const { data, error } = await supabase
+        .from("instagram_data")
+        .select("*")
+        .order("id", { ascending: true })
+        .limit(3);
+
+      if (error) {
+        console.error("Error fetching Instagram data:", error);
+      } else {
+        console.log("Fetched Instagram Data:", data); // Debugging log
+        setInstagramData(data || []);
+      }
+    };
+
     checkAuth();
 
     // Detect if the user is on a mobile device
@@ -102,6 +120,36 @@ const Dashboard = () => {
     setExpanded(expanded === id ? null : id); // Toggle the accordion
   };
 
+  const updateInstagramCard = async () => {
+    if (selectedCard === null || embedCode.trim() === "") {
+      alert("Please select a card and provide an embed code.");
+      return;
+    }
+
+    const { error } = await supabase
+      .from("instagram_data")
+      .update({ embed_code: embedCode })
+      .eq("id", selectedCard);
+
+    if (error) {
+      console.error("Error updating Instagram card:", error);
+      alert("Failed to update the Instagram card.");
+    } else {
+      alert("Instagram card updated successfully!");
+      setShowInstagramModal(false);
+      setEmbedCode("");
+      setSelectedCard(null);
+
+      // Refresh Instagram data
+      const { data } = await supabase
+        .from("instagram_data")
+        .select("*")
+        .order("id", { ascending: true })
+        .limit(3);
+      setInstagramData(data || []);
+    }
+  };
+
   if (loading) {
     return <div className="text-center py-10">Loading...</div>;
   }
@@ -113,21 +161,47 @@ const Dashboard = () => {
   return (
     <section className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-6xl bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg relative">
-        {/* Export Button */}
-        <button
-          onClick={exportToExcel}
-          className="fixed top-4 left-4 sm:static sm:ml-0 bg-purple-600 text-white px-4 py-2 rounded-md shadow-lg hover:bg-purple-700 focus:outline-none z-50"
-        >
-          Export to Excel
-        </button>
+        {/* Hamburger Menu Button */}
+        <div className="absolute top-4 left-4 z-50">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 bg-purple-600 text-white rounded-md shadow-md focus:outline-none"
+          >
+            {isMenuOpen ? (
+              <XMarkIcon className="h-6 w-6" />
+            ) : (
+              <Bars3Icon className="h-6 w-6" />
+            )}
+          </button>
+        </div>
 
-        {/* New Reviews Button */}
-        <button
-          onClick={() => setShowReviewsModal(true)}
-          className="fixed top-4 right-4 sm:static sm:ml-4 bg-white text-purple-600 border border-purple-600 px-4 py-2 rounded-md shadow-md hover:bg-purple-100 focus:outline-none z-50"
-        >
-          New Reviews
-        </button>
+        {/* Hamburger Menu */}
+        {isMenuOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-3/4 max-w-sm">
+              <div className="space-y-4">
+                <button
+                  onClick={exportToExcel}
+                  className="w-full bg-purple-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-purple-700 focus:outline-none"
+                >
+                  Export to Excel
+                </button>
+                <button
+                  onClick={() => setShowReviewsModal(true)}
+                  className="w-full bg-white text-purple-600 border border-purple-600 px-4 py-2 rounded-md shadow-md hover:bg-purple-100 focus:outline-none"
+                >
+                  New Reviews
+                </button>
+                <button
+                  onClick={() => setShowInstagramModal(true)}
+                  className="w-full bg-purple-600 text-white border border-white px-4 py-2 rounded-md shadow-md hover:bg-purple-700 focus:outline-none"
+                >
+                  IG Cards
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <h2 className="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-gray-100">
           Dashboard
@@ -384,6 +458,65 @@ const Dashboard = () => {
                   className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none"
                 >
                   Reject
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Instagram Update Modal */}
+        {showInstagramModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                Update Instagram Card
+              </h2>
+              <div className="mb-4">
+                <label className="block text-gray-700 dark:text-gray-300 mb-2">
+                  Select Card to Update:
+                </label>
+                <select
+                  value={selectedCard || ""}
+                  onChange={(e) => setSelectedCard(Number(e.target.value))}
+                  className="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-gray-300"
+                >
+                  <option value="" disabled>
+                    Select a card
+                  </option>
+                  {instagramData.map((card) => (
+                    <option key={card.id} value={card.id}>
+                      Card {card.id}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 dark:text-gray-300 mb-2">
+                  Embed Code:
+                </label>
+                <textarea
+                  value={embedCode}
+                  onChange={(e) => setEmbedCode(e.target.value)}
+                  className="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-gray-300"
+                  placeholder="Enter the new embed code"
+                />
+              </div>
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={updateInstagramCard}
+                  className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => {
+                    setShowInstagramModal(false);
+                    setSelectedCard(null);
+                    setEmbedCode("");
+                  }}
+                  className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:outline-none"
+                >
+                  Cancel
                 </button>
               </div>
             </div>

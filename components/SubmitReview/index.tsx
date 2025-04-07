@@ -39,6 +39,12 @@ const SubmitReview: React.FC<SubmitReviewProps> = ({ existingReview, onReviewSub
         return;
       }
 
+      const { error: reviewError, data: review } = await supabase.from("reviews").select("*").eq("user_id", user.id).single();
+
+      if (reviewError) {
+      } else {
+        console.log("Fetched review:", review);
+      }
       const { error } = await supabase.from("reviews").insert([
         {
           user_id: user.id,

@@ -26,6 +26,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/wvi1wpy.css" />
+        <script async src="//www.instagram.com/embed.js"></script>
       </head>
       <body className={`dark:bg-black ${inter.className}`}>
         <ThemeProvider

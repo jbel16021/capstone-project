@@ -141,7 +141,9 @@ const Pricing = () => {
 
               <button
                 aria-label="Get the Plan button"
-                className="group/btn inline-flex items-center gap-2.5 font-medium text-primary transition-all duration-300 dark:text-white dark:hover:text-primary"
+                className="group/btn inline-flex items-center gap-2.5 font-medium text-primary transition-all duration-300 dark:text-white"
+                onClick={() => {window.open("https://buy.stripe.com/test_5kA156fEO9bEgAEdQT", "_blank", "noopener,noreferrer");
+                }}
               >
                 <span className="duration-300 group-hover/btn:text-purple-500">
                 Obtén el plan

@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { Feature } from "@/types/feature";
+"use client";
+
+declare global {
+  interface Window {
+    instgrm?: {
+      Embeds: {
+        process: () => void;
+      };
+    };
+  }
+}
+
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
-const SingleInstagram = ({ feature }: { feature: Feature }) => {
-  const { title, description, embedCode } = feature;
-  
-  const [isClient, setIsClient] = useState(false);
-
+const SingleInstagram = ({
+  feature: { title, description, embed_code },
+}: {
+  feature: { title: string; description: string; embed_code: string };
+}) => {
   useEffect(() => {
-    // Mark the component as mounted on the client side
-    setIsClient(true);
-
-    // Ensure the Instagram embed script is loaded
-    const script = document.createElement("script");
-    script.src = "//www.instagram.com/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      // Cleanup the script if necessary
-      document.body.removeChild(script);
-    };
+    // Ensure Instagram embeds are reloaded on the client
+    if (typeof window !== "undefined" && window.instgrm) {
+      window.instgrm.Embeds.process();
+    }
   }, []);
-
-  if (!isClient) {
-    // During SSR, don't render the Instagram embed to avoid hydration errors
-    return null;
-  }
 
   return (
     <motion.div
@@ -50,7 +47,10 @@ const SingleInstagram = ({ feature }: { feature: Feature }) => {
         {title}
       </h3>
       <p className="mb-4 text-gray-600 dark:text-gray-300">{description}</p>
-      {isClient && <div dangerouslySetInnerHTML={{ __html: embedCode }} />}
+      <div
+        className="instagram-embed-container"
+        dangerouslySetInnerHTML={{ __html: embed_code }}
+      />
     </motion.div>
   );
 };
