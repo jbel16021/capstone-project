@@ -51,7 +51,7 @@ const SubmitReview: React.FC<SubmitReviewProps> = ({ existingReview, onReviewSub
         setError("Failed to authenticate. Please try again.");
         return;
       }
-      // Fetch
+
       const { error: reviewError, data: review } = await supabase
         .from("reviews")
         .select("*")
