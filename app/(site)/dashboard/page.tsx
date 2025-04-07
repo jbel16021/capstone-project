@@ -116,10 +116,7 @@ const Dashboard = () => {
         {/* Export Button */}
         <button
           onClick={exportToExcel}
-          className={`${isMobile
-            ? "fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-purple-700 focus:outline-none"
-            : "absolute top-4 left-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none"
-            }`}
+          className="fixed top-4 left-4 sm:static sm:ml-0 bg-purple-600 text-white px-4 py-2 rounded-md shadow-lg hover:bg-purple-700 focus:outline-none z-50"
         >
           Export to Excel
         </button>
@@ -127,10 +124,7 @@ const Dashboard = () => {
         {/* New Reviews Button */}
         <button
           onClick={() => setShowReviewsModal(true)}
-          className={`${isMobile
-              ? "fixed bottom-4 left-4 bg-white text-purple-600 border border-purple-600 px-4 py-2 rounded-full shadow-lg hover:bg-purple-100 focus:outline-none"
-              : "absolute top-4 right-4 bg-white text-purple-600 border border-purple-600 px-4 py-2 rounded-md shadow-md hover:bg-purple-100 focus:outline-none"
-            }`}
+          className="fixed top-4 right-4 sm:static sm:ml-4 bg-white text-purple-600 border border-purple-600 px-4 py-2 rounded-md shadow-md hover:bg-purple-100 focus:outline-none z-50"
         >
           New Reviews
         </button>

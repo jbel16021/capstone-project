@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"
 import "../globals.css";
 import { usePathname } from "next/navigation"; // Import usePathname to get the current route
 const inter = Inter({ subsets: ["latin"] });
@@ -37,6 +38,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <ScrollToTop />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
