@@ -163,7 +163,7 @@ const Header = () => {
             href="https://wa.me/1234567890?text=Hi%2C%20I%E2%80%99d%20like%20to%20get%20started%21%20Here%E2%80%99s%20my%20information%3A%0AFull%20Name%3A%0AEmail%20Address%3A%0APhone%20Number%3A%0ASubject%3A%0AMessage%3A"
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed top-4 right-4 z-99999 flex items-center justify-center rounded-full bg-purple-500 px-4 py-2 text-sm font-medium text-white shadow-lg duration-300 ease-in-out hover:bg-purple-700"
+            className="fixed top-4 right-6 z-99999 flex items-center justify-center rounded-full bg-purple-500 px-4 py-2 text-sm font-medium text-white shadow-lg duration-300 ease-in-out hover:bg-purple-700"
           >
             WhatsApp
           </a>
@@ -171,7 +171,7 @@ const Header = () => {
           {/* Sign In Button */}
           <a
             href="/auth/signin"
-            className="fixed top-4 right-32 z-99999 flex items-center justify-center rounded-full border border-purple-500 bg-white px-4 py-2 text-sm font-medium text-purple-500 shadow-lg duration-300 ease-in-out hover:bg-purple-100 hover:text-purple-700"
+            className="fixed top-4 right-36 z-99999 flex items-center justify-center rounded-full border border-purple-500 bg-white px-4 py-2 text-sm font-medium text-purple-500 shadow-lg duration-300 ease-in-out hover:bg-purple-100 hover:text-purple-700"
           >
             Iniciar sesión
           </a>
