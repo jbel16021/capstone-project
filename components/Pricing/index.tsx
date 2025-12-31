@@ -54,12 +54,10 @@ const Pricing = () => {
 
               <button
                 aria-label="Get the Plan button"
-                className="group inline-flex items-center gap-2.5 font-medium text-primary transition-all duration-300 dark:text-white"
+                className="group inline-flex items-center justify-center gap-2.5 font-medium text-white bg-purple-500 px-6 py-3 rounded-full shadow-md transition-all duration-300 hover:bg-purple-700 focus:outline-none"
                 onClick={() => { window.open("https://buy.stripe.com/test_dR68xy64e87AckofZ0", "_blank", "noopener,noreferrer"); }}
               >
-                <span className="duration-300 group-hover:text-purple-500">
                 Obtén el plan
-                </span>
               </button>
             </div>
 
@@ -97,13 +95,11 @@ const Pricing = () => {
 
               <button
                 aria-label="Get the Plan button"
-                className="group/btn inline-flex items-center gap-2.5 font-medium text-primary transition-all duration-300 dark:text-white"
+                className="group inline-flex items-center justify-center gap-2.5 font-medium text-white bg-purple-500 px-6 py-3 rounded-full shadow-md transition-all duration-300 hover:bg-purple-700 focus:outline-none"
                 onClick={() => {window.open("https://buy.stripe.com/test_14k5lm0JUgE67045kl", "_blank", "noopener,noreferrer");
                 }}
               >
-                <span className="duration-300 group-hover/btn:text-purple-500">
                 Obtén el plan
-                </span>
               </button>
             </div>
 
@@ -141,13 +137,11 @@ const Pricing = () => {
 
               <button
                 aria-label="Get the Plan button"
-                className="group/btn inline-flex items-center gap-2.5 font-medium text-primary transition-all duration-300 dark:text-white"
+                className="group inline-flex items-center justify-center gap-2.5 font-medium text-white bg-purple-500 px-6 py-3 rounded-full shadow-md transition-all duration-300 hover:bg-purple-700 focus:outline-none"
                 onClick={() => {window.open("https://buy.stripe.com/test_5kA156fEO9bEgAEdQT", "_blank", "noopener,noreferrer");
                 }}
               >
-                <span className="duration-300 group-hover/btn:text-purple-500">
                 Obtén el plan
-                </span>
               </button>
             </div>
 

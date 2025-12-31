@@ -17,9 +17,9 @@ export default function Home() {
       <Hero />
       <Brands />
       <Contact />
-      <Pricing />
+      {/* <Pricing /> */}
       <Instagram />
-      <Testimonial />
+      {/* <Testimonial /> */}
     </main>
   );
 }
