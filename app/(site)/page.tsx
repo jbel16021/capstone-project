@@ -7,8 +7,8 @@ import Contact from "@/components/Contact";
 import Testimonial from "@/components/Testimonial";
 
 export const metadata: Metadata = {
-  title: "trainerconnect",
-  description: "trainerConnect Homepage"
+  title: "Normiss Fitness",
+  description: "Normiss Fitness"
 };
 
 export default function Home() {
