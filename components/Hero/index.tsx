@@ -70,15 +70,6 @@ const Hero = () => {
                   height={600}
                   style={{ width: "100%", height: "100%", objectFit: "contain" }}
                 />
-                <div className="absolute right-4 bottom-0 transform translate-y-1/4 md:translate-y-0 z-20">
-                  <Image
-                    src="/images/brand/normiss-fitness-logo-svg.svg"
-                    alt="Normiss Fitness Logo"
-                    width={140}
-                    height={140}
-                    className="object-contain"
-                  />
-                </div>
               </div>
             </a>
           ) : (

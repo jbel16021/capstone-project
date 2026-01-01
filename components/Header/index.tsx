@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -51,6 +52,17 @@ const Header = () => {
           : ""
           }`}
       >
+        {/* Mobile centered logo that slightly pops out of the navbar. Non-interactive so it doesn't block hero taps. */}
+        <div className="absolute left-1/2 top-full transform -translate-x-1/2 -translate-y-1/2 md:hidden z-50 pointer-events-none">
+          <Image
+            src="/images/brand/normiss-fitness-logo-svg.svg"
+            alt="Normiss Fitness Logo"
+            width={100}
+            height={100}
+            style={{ pointerEvents: "none" }}
+            className="object-contain"
+          />
+        </div>
         <div className="relative mx-auto max-w-c-1390 items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
           <div className="flex w-full items-center justify-between xl:w-1/4">
             <button
