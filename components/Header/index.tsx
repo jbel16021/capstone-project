@@ -53,7 +53,7 @@ const Header = () => {
           }`}
       >
         {/* Mobile centered logo that slightly pops out of the navbar. Non-interactive so it doesn't block hero taps. */}
-        <div className="absolute left-1/2 top-full transform -translate-x-1/2 -translate-y-1/2 md:hidden z-50 pointer-events-none">
+        <div className="absolute left-1/2 top-full transform -translate-x-1/2 -translate-y-[30%] md:hidden z-50 pointer-events-none">
           <Image
             src="/images/brand/normiss-fitness-logo-svg.svg"
             alt="Normiss Fitness Logo"
@@ -172,7 +172,7 @@ const Header = () => {
         <>
           {/* WhatsApp Button */}
           <a
-            href="https://wa.me/1234567890?text=Hi%2C%20I%E2%80%99d%20like%20to%20get%20started%21%20Here%E2%80%99s%20my%20information%3A%0AFull%20Name%3A%0AEmail%20Address%3A%0APhone%20Number%3A%0ASubject%3A%0AMessage%3A"
+            href="https://wa.me/526141394137?text=Hola%20%F0%9F%91%8B%0AQuiero%20inscribirme%20a%20la%20clase%20de%20Fitness%20en%20Vivo%20por%20Zoom%20del%0A%F0%9F%93%85%20S%C3%A1bado%2024%20de%20enero%202026.%0A%0A%C2%BFMe%20puedes%20compartir%20los%20datos%20para%20apartar%20mi%20lugar%2C%20por%20favor%3F%20%F0%9F%92%AA%E2%9C%A8"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed top-4 right-6 z-99999 flex items-center justify-center rounded-full bg-purple-500 px-4 py-2 text-sm font-medium text-white shadow-lg duration-300 ease-in-out hover:bg-purple-700"
