@@ -55,13 +55,24 @@ const Hero = () => {
         {/* Background Image (offset to sit below fixed header) */}
         <div className="absolute left-0 right-0 top-12 bottom-0 -z-10 md:top-20 xl:top-24">
           {isMobileView === null ? null : isMobileView ? (
-            <Image
-              src="/images/brand/zoom-enero-2026-mobile.png"
-              alt="Hero banner mobile"
-              width={800}
-              height={600}
-              style={{ width: "100%", height: "auto", objectFit: "contain" }}
-            />
+            <div className="relative w-full z-0">
+              <Image
+                src="/images/brand/zoom-enero-2026-mobile.jpg"
+                alt="Hero banner mobile"
+                width={800}
+                height={600}
+                style={{ width: "100%", height: "auto", objectFit: "contain" }}
+              />
+              <div className="absolute right-4 bottom-0 transform translate-y-1/4 md:translate-y-0 z-20">
+                <Image
+                  src="/images/brand/normiss-fitness-logo-svg.svg"
+                  alt="Normiss Fitness Logo"
+                  width={140}
+                  height={140}
+                  className="object-contain"
+                />
+              </div>
+            </div>
           ) : (
             <Image
               src="/images/brand/zoom-enero-2026.jpg"
@@ -70,19 +81,20 @@ const Hero = () => {
               className="object-cover"
               priority
             />
-          )}
         </div>
 
         {/* Logo positioned bottom-right */}
-        <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-20">
-          <Image
-            src="/images/brand/normiss-fitness-logo-svg.svg"
-            alt="Normiss Fitness Logo"
-            width={160}
-            height={160}
-            className="object-contain"
-          />
-        </div>
+        {isMobileView === null ? null : isMobileView ? null : (
+          <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-20">
+            <Image
+              src="/images/brand/normiss-fitness-logo-svg.svg"
+              alt="Normiss Fitness Logo"
+              width={160}
+              height={160}
+              className="object-contain"
+            />
+          </div>
+        )}
 
         {/*
           Original video and centered content preserved below (commented out)
