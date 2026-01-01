@@ -38,7 +38,7 @@ const Contact = () => {
     const phone = (form.querySelector('#phone') as HTMLInputElement)?.value || '';
     const messageField = (form.querySelector('#message') as HTMLTextAreaElement)?.value || '';
 
-    const waMessage = `Hola 👋  \nMi nombre es ${name}.\n\nQuiero inscribirme a la clase de Fitness en Vivo por Zoom.\n\n📧 Email: ${email}  \n📞 Teléfono: ${phone}  \n📝 Mensaje:\n${messageField}\n`;
+    const waMessage = `Hola 👋  \nMi nombre es ${name}.\n\nQuiero inscribirme a la clases de Fitness.\n\n📧 Email: ${email}  \n📞 Teléfono: ${phone}  \n📝 Mensaje:\n${messageField}\n`;
 
     const encoded = encodeURIComponent(waMessage);
     const waUrl = `https://wa.me/526141394137?text=${encoded}`;

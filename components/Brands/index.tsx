@@ -15,7 +15,7 @@ const Brands = ({ isFooter = false }: { isFooter?: boolean }) => {
       >
         <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
           {!isFooter && (
-            <div className="w-full text-center mb-4">
+            <div className="w-full text-center mb-10">
               <span className="mb-5 text-3xl font-semibold text-black dark:text-white xl:text-sectiontitle2">
                 Sígueme en mis redes.
               </span>
