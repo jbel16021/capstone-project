@@ -81,6 +81,7 @@ const Hero = () => {
               className="object-cover"
               priority
             />
+          )}
         </div>
 
         {/* Logo positioned bottom-right */}
