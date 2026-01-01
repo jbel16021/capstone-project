@@ -57,7 +57,7 @@ const Hero = () => {
           {isMobileView === null ? null : isMobileView ? (
             <div className="relative w-full z-0">
               <Image
-                src="/images/brand/zoom-enero-2026-mobile.jpg"
+                src="/images/brand/zoom-enero-2026-mobile.png"
                 alt="Hero banner mobile"
                 width={800}
                 height={600}
