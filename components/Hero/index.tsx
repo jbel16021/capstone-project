@@ -12,7 +12,7 @@ interface ExtendedNavigator extends Navigator {
 
 const Hero = () => {
   const [videoSrc, setVideoSrc] = useState("video/0331.mp4"); // Default to desktop video
-  const [isMobileView, setIsMobileView] = useState(false);
+  const [isMobileView, setIsMobileView] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && typeof navigator !== "undefined") {
@@ -54,13 +54,13 @@ const Hero = () => {
       <section className="relative overflow-hidden pt-12 md:pt-20 xl:pb-25 xl:pt-24 min-h-screen">
         {/* Background Image (offset to sit below fixed header) */}
         <div className="absolute left-0 right-0 top-12 bottom-0 -z-10 md:top-20 xl:top-24">
-          {isMobileView ? (
+          {isMobileView === null ? null : isMobileView ? (
             <Image
               src="/images/brand/zoom-enero-2026-mobile.png"
               alt="Hero banner mobile"
-              fill
-              className="object-cover"
-              priority
+              width={800}
+              height={600}
+              style={{ width: "100%", height: "auto", objectFit: "contain" }}
             />
           ) : (
             <Image
