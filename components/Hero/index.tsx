@@ -74,7 +74,7 @@ const Hero = () => {
             </a>
           ) : (
             <Image
-              src="/images/brand/zoom-enero-2026.jpg"
+              src="/images/brand/zoom-enero-2026.png"
               alt="Hero banner"
               fill
               className="object-cover"

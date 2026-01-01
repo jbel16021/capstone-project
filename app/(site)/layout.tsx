@@ -25,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/images/brand/normiss-fitness-logo-svg.svg" />
         <script async src="//www.instagram.com/embed.js"></script>
       </head>
       <body className={`dark:bg-black ${inter.className}`}>
