@@ -1,12 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
-);
+// This form now opens WhatsApp instead of sending data to Supabase
 
 const Contact = () => {
   const [hasMounted, setHasMounted] = React.useState(false);
@@ -32,26 +27,27 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsSubmitting(true); // Disable the button
-    const { data, error } = await supabase.from("contacts").insert([formData]);
+    setIsSubmitting(true);
 
-    if (error) {
-      console.error("Error submitting form:", error.message);
-      setIsSubmitting(false); // Re-enable the button if there's an error
-    } else {
-      console.log("Form submitted successfully:", data);
-      setShowModal(true); // Show the confirmation modal
-      setFormData({
-        full_name: "",
-        email: "",
-        subject: "",
-        phone_number: "",
-        message: "",
-      }); // Reset the form
-    }
+    const form = e.currentTarget as HTMLFormElement;
+    const name = (form.querySelector('#name') as HTMLInputElement)?.value || '';
+    const email = (form.querySelector('#email') as HTMLInputElement)?.value || '';
+    const phone = (form.querySelector('#phone') as HTMLInputElement)?.value || '';
+    const messageField = (form.querySelector('#message') as HTMLTextAreaElement)?.value || '';
+
+    const waMessage = `Hola 👋  \nMi nombre es ${name}.\n\nQuiero inscribirme a la clase de Fitness en Vivo por Zoom.\n\n📧 Email: ${email}  \n📞 Teléfono: ${phone}  \n📝 Mensaje:\n${messageField}\n`;
+
+    const encoded = encodeURIComponent(waMessage);
+    const waUrl = `https://wa.me/526141394137?text=${encoded}`;
+
+    window.open(waUrl, '_blank');
+
+    // Optionally reset the form and re-enable the button
+    form.reset();
+    setIsSubmitting(false);
   };
 
   return (
@@ -85,6 +81,7 @@ const Contact = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-7.5 flex flex-col gap-7.5 lg:flex-row lg:justify-between lg:gap-14">
                 <input
+                  id="name"
                   type="text"
                   name="full_name"
                   placeholder="Nombre completo"
@@ -95,6 +92,7 @@ const Contact = () => {
                 />
 
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   placeholder="Dirección de correo electrónico"
@@ -116,6 +114,7 @@ const Contact = () => {
                 />
 
                 <input
+                  id="phone"
                   type="text"
                   name="phone_number"
                   placeholder="Número de teléfono"
@@ -127,6 +126,7 @@ const Contact = () => {
 
               <div className="mb-11.5 flex">
                 <textarea
+                  id="message"
                   name="message"
                   placeholder="Mensaje"
                   value={formData.message}

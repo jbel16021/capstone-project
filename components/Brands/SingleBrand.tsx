@@ -27,7 +27,7 @@ const SingleBrand = ({ brand }: { brand: Brand }) => {
         href={href}
         target="_blank" // Opens the link in a new tab
         rel="noopener noreferrer" // Prevents security vulnerabilities
-        className="animate_top mx-w-full relative block h-10 w-[98px]"
+        className="animate_top max-w-full relative block h-[60px] w-[147px]"
       >
         <Image
           className="opacity-65 transition-all duration-300 hover:opacity-100 dark:hidden"
