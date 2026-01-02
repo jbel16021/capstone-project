@@ -73,13 +73,21 @@ const Hero = () => {
               </div>
             </a>
           ) : (
-            <Image
-              src="/images/brand/zoom-enero-2026.png"
-              alt="Hero banner"
-              fill
-              className="object-cover"
-              priority
-            />
+            <a
+              href="https://www.eventbrite.com/e/normiss-en-vivo-motivacion-y-objetivos-de-fitness-tickets-1979560937051?aff=oddtdtcreator"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Normiss en Vivo - Motivación y Objetivos de Fitness"
+              className="block w-full h-full"
+            >
+              <Image
+                src="/images/brand/zoom-enero-2026.png"
+                alt="Hero banner"
+                fill
+                className="object-cover"
+                priority
+              />
+            </a>
           )}
         </div>
 
