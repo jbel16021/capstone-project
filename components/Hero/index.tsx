@@ -53,14 +53,14 @@ const Hero = () => {
     <>
       <section className="relative overflow-hidden pt-12 md:pt-20 xl:pb-25 xl:pt-24 min-h-screen">
         {/* Background Image (offset to sit below fixed header) */}
-        <div className={`absolute left-0 right-0 top-12 bottom-0 ${isMobileView ? "z-0" : "-z-10"} md:top-20 xl:top-24`}>
+        <div className={`absolute left-0 right-0 top-12 bottom-0 ${isMobileView ? "z-0" : "z-0"} md:top-20 xl:top-24`}>
           {isMobileView === null ? null : isMobileView ? (
             <a
               href="https://wa.me/526141394137?text=Hola%20%F0%9F%91%8B%0AQuiero%20inscribirme%20a%20la%20clase%20de%20Fitness%20en%20Vivo%20por%20Zoom%20del%0A%F0%9F%93%85%20S%C3%A1bado%2024%20de%20enero%202026.%0A%0A%C2%BFMe%20puedes%20compartir%20los%20datos%20para%20apartar%20mi%20lugar%2C%20por%20favor%3F%20%F0%9F%92%AA%E2%9C%A8"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Abrir WhatsApp para inscribirme"
-              className="block w-full h-full"
+              className="absolute inset-0 block w-full h-full"
             >
               <div className="relative w-full h-full z-0">
                 <Image
@@ -78,7 +78,7 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Normiss en Vivo - Motivación y Objetivos de Fitness"
-              className="block w-full h-full"
+              className="absolute inset-0 z-10 cursor-pointer"
             >
               <Image
                 src="/images/brand/zoom-enero-2026.png"
