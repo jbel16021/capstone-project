@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Brands from "@/components/Brands";
 import Instagram from "@/components/Instagram";
-import Pricing from "@/components/Pricing";
+import About from "@/components/Pricing";
 import Contact from "@/components/Contact";
 import Testimonial from "@/components/Testimonial";
 
@@ -17,7 +17,7 @@ export default function Home() {
       <Hero />
       <Brands />
       <Contact />
-      {/* <Pricing /> */}
+      <About />
       <Instagram />
       {/* <Testimonial /> */}
     </main>
